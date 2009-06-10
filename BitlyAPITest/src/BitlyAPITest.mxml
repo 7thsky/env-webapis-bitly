@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:bitly="com.innovid.bitly.*"
 	layout="absolute" 
 	creationComplete="processInit()"
 	>
@@ -28,13 +27,13 @@
 	<mx:Script>
 		<![CDATA[
 			import env.webapis.bitly.BitlyFault;
-			import env.webapis.bitly.data.ErrorsData;
-			import flash.utils.describeType;
-			import env.webapis.bitly.data.ShortenData;
 			import env.webapis.bitly.BitlyData;
 			import env.webapis.bitly.BitlyCall;
 			import env.webapis.bitly.BitlyEvent;
 			import env.webapis.bitly.BitlyAPI;
+			
+			import env.webapis.bitly.data.ErrorsData;
+			import env.webapis.bitly.data.ShortenData;
 			
 			private var api:BitlyAPI;
 			private var calls:Array	= [];
