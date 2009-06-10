@@ -21,6 +21,7 @@ package env.webapis.bitly
 		{
 			super(type);
 			
+			_response	= response;
 			_success 	= success;
 			_data		= data;
 			_fault		= fault;
