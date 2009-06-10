@@ -18,20 +18,7 @@ package env.webapis.bitly.data
 		
 		override public function toString():String
 		{
-			var s:String;
-			var fault:BitlyFault;
-			
-			s = '[ErrorsData count="' + (faults ? faults.length : 0) + '"]';
-			
-			if (faults) 
-			{
-				for each (fault in faults) 
-				{
-					s += "\n\t" + fault;
-				}
-			} 
-			
-			return s;
+			return '[ErrorsData count="' + (faults ? faults.length : 0) + '"]';
 		}
 		
 		// ----------------------------------------------------
