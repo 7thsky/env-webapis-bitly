@@ -1,5 +1,6 @@
 package env.webapis.bitly
 {
+	import env.webapis.bitly.data.ErrorsData;
 	import env.webapis.bitly.data.ExpandData;
 	import env.webapis.bitly.data.InfoData;
 	import env.webapis.bitly.data.ShortenData;
@@ -60,7 +61,7 @@ package env.webapis.bitly
 					break;
 					
 				case BitlyMethod.ERRORS:
-					data = parseErrorsData(result);
+					data = parseErrorsData1(result);
 					break;
 			}
 			
@@ -177,7 +178,67 @@ package env.webapis.bitly
 
 		private static function parseErrorsData(results:XML):BitlyData
 		{
-			return null;
+			var data:ErrorsData;
+			var node:XML;
+			var fault:BitlyFault;
+			
+			data = new ErrorsData();
+			data.faults = [];
+			
+			for each (node in results.children()) 
+			{
+				fault = data.faults[Math.floor(node.childIndex() / 3)];
+				
+				if (!fault) 
+				{
+					fault = data.faults[Math.floor(node.childIndex() / 3)] = new BitlyFault();
+				}
+				
+				switch (node.childIndex() % 3)
+				{
+					case 0:
+						// code
+						fault.code = node.text()[0];
+						break;
+						
+					case 1:
+						// message
+						fault.message = node.text()[1];
+						break;
+						
+					case 2:
+						// status code
+						break;
+				} 
+			}
+			
+			return data;
+		}
+		
+		private static function parseErrorsData1(results:XML):BitlyData
+		{
+			var data:ErrorsData;
+			var faultMessages:XMLList;
+			var faultCodes:XMLList;
+			var fault:BitlyFault;
+			var i:int, l:int;
+						
+			faultCodes		= results.child('errorCode').text();
+			faultMessages 	= results.child('errorMessage').text();
+			
+			data			= new ErrorsData();
+			data.faults		= [];
+			
+			for (i = 0, l = faultCodes.length(); i < l; i++) 
+			{
+				fault 			= new BitlyFault();
+				fault.code		= faultCodes[i];
+				fault.message	= faultMessages[i]
+				
+				data.faults.push(fault); 
+			}
+						
+			return data;
 		}
 
 	}

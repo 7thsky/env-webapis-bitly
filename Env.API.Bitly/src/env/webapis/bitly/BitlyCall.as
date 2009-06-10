@@ -147,7 +147,7 @@ package env.webapis.bitly
 			request 		= new URLRequest();
 			request.url		= api.baseURL + method;
 			request.data	= vars;
-			request.method	= URLRequestMethod.GET;
+			request.method	= URLRequestMethod.POST;
 			
 			return request;
 		}

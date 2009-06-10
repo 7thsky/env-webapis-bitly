@@ -1,5 +1,11 @@
 package env.webapis.bitly
 {
+	import env.webapis.bitly.data.ErrorsData;
+	import env.webapis.bitly.data.ExpandData;
+	import env.webapis.bitly.data.InfoData;
+	import env.webapis.bitly.data.ShortenData;
+	import env.webapis.bitly.data.StatsData;
+	
 	public class BitlyAPI
 	{
 		public static const VERSION:String			= '2.0.1';
@@ -16,6 +22,25 @@ package env.webapis.bitly
 		
 		public function BitlyAPI(login:String, apiKey:String, baseURL:String = null)
 		{
+			// 
+			// Dependencies
+			//
+			BitlyFormat;
+			BitlyMethod;
+			BitlyParameter;
+			BitlyEvent;
+			BitlyFault;
+			BitlyCall;
+			
+			ExpandData;
+			ShortenData;
+			StatsData;
+			InfoData;
+			ErrorsData;
+			
+			//
+			// process parameters
+			//
 			_apiKey 	= apiKey;
 			_login 		= login;
 			_format		= BitlyFormat.XML;
@@ -27,10 +52,11 @@ package env.webapis.bitly
 		 * 
 		 * @param longURL		:	String
 		 * @param keyword		:	String
+		 * @param saveTo
 		 * 
 		 * @return <code>BitlyCall</code>
 		 */		
-		public function shorten(longURL:String, keyword:String = null):BitlyCall
+		public function shorten(longURL:String, keyword:String = null, addToHistory:Boolean = false):BitlyCall
 		{
 			var call:BitlyCall;
 			
@@ -38,6 +64,11 @@ package env.webapis.bitly
 			{
 				call = new BitlyCall(this, BitlyMethod.SHORTEN);
 				call.setParameter(BitlyParameter.LONG_URL, longURL);
+				
+				if (addToHistory) 
+				{
+					call.setParameter(BitlyParameter.HISTORY, 1);
+				}				
 				
 				if (keyword) 
 				{

@@ -46,7 +46,12 @@ package env.webapis.bitly.data
 		override public function toString():String
 		{
 			return '[InfoData' +
-				' ]';
+				' hash="' + hash + '"' +
+				' userHash="' + userHash + '"' +
+				' globalHash="' + globalHash + '"' +
+				' keyword="' + keyword + '"' +
+				' longURL="' + longURL + '"' +
+				' shortenByUser="' + shortenedByUser + '"]';
 		}
 		// -------------------------------------------------------------
 		//	interface : properties

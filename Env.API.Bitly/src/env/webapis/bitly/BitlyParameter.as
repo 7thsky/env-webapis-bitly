@@ -10,5 +10,6 @@ package env.webapis.bitly
 		public static const SHORT_URL:String		= 'shortUrl';
 		public static const HASH:String				= 'hash';
 		public static const KEYWORD:String			= 'keyword';
+		public static const HISTORY:String			= 'history';
 	}
 }
