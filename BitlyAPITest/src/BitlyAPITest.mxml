@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="absolute" 
+	creationComplete="processInit()"
+	>
+	
+	<mx:VBox 
+		width="750" height="400"
+		clipContent="true"
+		verticalScrollPolicy="auto"
+		horizontalScrollPolicy="off"
+		backgroundColor="#ffffff" backgroundAlpha=".4"
+		verticalCenter="0" horizontalCenter="0"
+		>
+		
+		<mx:Text 
+			htmlText="{getLink(shortURL)}" 
+			textDecoration="underline" fontWeight="bold" />
+			
+		<mx:Text id="txtOut" 
+			width="100%" height="100%"
+			/>
+			
+	</mx:VBox>	
+		
+	<mx:Script>
+		<![CDATA[
+			import env.webapis.bitly.BitlyFault;
+			import env.webapis.bitly.BitlyData;
+			import env.webapis.bitly.BitlyCall;
+			import env.webapis.bitly.BitlyEvent;
+			import env.webapis.bitly.BitlyAPI;
+			
+			import env.webapis.bitly.data.ErrorsData;
+			import env.webapis.bitly.data.ShortenData;
+			
+			private var api:BitlyAPI;
+			private var calls:Array	= [];
+			
+			private var activeCall:BitlyCall;
+			private var activeCallInfo:Object;
+			private var activeCallIndex:int = -1;
+			
+			[Bindable] private var login:String 		= 'bitlyapidemo';
+			[Bindable] private var apiKey:String		= 'R_0da49e0a9118ff35f52f629d2d71bf07';
+			[Bindable] private var shortURL:String		= null;
+			[Bindable] private var userHash:String		= null;
+			[Bindable] private var hash:String			= null;
+			 			
+			[Bindable] private var longURL:String = 'http://b.cc.aaa.com/path/to/some.php?' +
+				'project=200&message=' + escape('la al !@#@$$%^$%^&^&*') + '#some-topic';
+			
+			private function processInit ():void {
+				api = new BitlyAPI(login, apiKey);
+				
+				calls = [
+					{ label: 'Get Shorten', method: executeShorten 	},
+					{ label: 'Expand', 		method: executeExpand 	},
+					{ label: 'Get Stats', 	method: executeStats	},
+					{ label: 'Get Info', 	method: executeInfo		},
+					{ label: 'Get Errors', 	method: executeErrors	}
+					];
+					
+				executeNext();
+			}
+			
+			private function getLink(shortURL:String):String 
+			{
+				return '<a href="' + shortURL + '" target="_blank">' + shortURL + '</a>';
+			}
+			
+			private function executeShorten():void 
+			{
+				activeCall = api.shorten(
+					longURL + '&r=' + new Date().time, 
+					'1qa0pl' + (new Date()).time,
+					false);
+			}
+			
+			private function executeExpand():void 
+			{
+				activeCall = api.expand(hash);
+			}
+			
+			private function executeStats():void 
+			{
+				activeCall = api.stats(hash);
+			}
+			
+			private function executeInfo():void 
+			{
+				activeCall = api.info(hash);
+			}
+			
+			private function executeNext():void 
+			{
+				var foo:Function;
+				
+				if (activeCall)
+				{ 
+					activeCall.removeEventListener(BitlyEvent.COMPLETE, handleResult);
+					activeCall.removeEventListener(BitlyEvent.ERROR, handleError);
+					activeCall = null;
+				}
+				
+				if (++activeCallIndex < calls.length) 
+				{
+					activeCallInfo = calls[activeCallIndex];
+					foo = activeCallInfo.method;
+					
+					txtOut.text += "\n\n[" + activeCallIndex + ']: ' + activeCallInfo.label + ': executed';
+							
+					foo();	
+					
+					if (activeCall) 
+					{
+						activeCall.addEventListener(BitlyEvent.COMPLETE, handleResult);
+						activeCall.addEventListener(BitlyEvent.ERROR, handleError);
+					}
+				}
+			}
+			
+			private function executeErrors():void 
+			{
+				activeCall = api.errors();
+			}
+			
+			private function handleResult(evt:BitlyEvent = null):void 
+			{
+				var s:String;
+				var fault:BitlyFault;
+				
+				if (activeCall && activeCallInfo.method == executeShorten) 
+				{
+					shortURL 	= ShortenData(evt.data).shortURL;
+					userHash 	= ShortenData(evt.data).userHash;	
+					hash		= ShortenData(evt.data).hash;
+				}
+				
+				s = "\n\t\t" + '+ Result!' +
+					(evt ? "\n\t\t+ " + evt.data.toString().split("\n").join("\n\t\t") : '');
+					
+				if (evt.data is ErrorsData)
+				{
+					for each (fault in ErrorsData(evt.data).faults)
+					{
+						s += "\n\t\t\t" + fault;
+					}
+				}
+				
+				txtOut.text += s;
+				
+				executeNext();
+			}
+			
+			private function handleError(evt:BitlyEvent):void {
+				txtOut.text += "\n\t\t" + '- Fault!' 
+					"\n\t\t+ " + evt.fault;
+				executeNext();
+			}
+			
+		]]>
+	</mx:Script>
+	
+</mx:Application>

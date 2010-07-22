@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+<includeClasses>
+<classEntry path="env.webapis.bitly.BitlyMethod"/>
+<classEntry path="env.webapis.bitly.data.StatsData"/>
+<classEntry path="env.webapis.bitly.BitlyCall"/>
+<classEntry path="env.webapis.bitly.data.InfoData"/>
+<classEntry path="env.webapis.bitly.BitlyParameter"/>
+<classEntry path="env.webapis.bitly.BitlyAPI"/>
+<classEntry path="env.webapis.bitly.BitlyFault"/>
+<classEntry path="env.webapis.bitly.data.ErrorsData"/>
+<classEntry path="env.webapis.bitly.data.ShortenData"/>
+<classEntry path="env.webapis.bitly.BitlyDataParser"/>
+<classEntry path="env.webapis.bitly.BitlyFormat"/>
+<classEntry path="env.webapis.bitly.data.ExpandData"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
+</flexLibProperties>
