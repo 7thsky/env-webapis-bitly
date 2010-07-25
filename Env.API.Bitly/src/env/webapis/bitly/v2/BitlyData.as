@@ -1,4 +1,4 @@
-package env.webapis.bitly
+package env.webapis.bitly.v2
 {
 	import flash.events.EventDispatcher;
 	

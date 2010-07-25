@@ -26,14 +26,14 @@
 		
 	<mx:Script>
 		<![CDATA[
-			import env.webapis.bitly.BitlyFault;
-			import env.webapis.bitly.BitlyData;
-			import env.webapis.bitly.BitlyCall;
-			import env.webapis.bitly.BitlyEvent;
-			import env.webapis.bitly.BitlyAPI;
+			import env.webapis.bitly.v2.BitlyFault;
+			import env.webapis.bitly.v2.BitlyData;
+			import env.webapis.bitly.v2.BitlyCall;
+			import env.webapis.bitly.v2.BitlyEvent;
+			import env.webapis.bitly.v2.BitlyAPI;
 			
-			import env.webapis.bitly.data.ErrorsData;
-			import env.webapis.bitly.data.ShortenData;
+			import env.webapis.bitly.v2.data.ErrorsData;
+			import env.webapis.bitly.v2.data.ShortenData;
 			
 			private var api:BitlyAPI;
 			private var calls:Array	= [];
@@ -42,8 +42,8 @@
 			private var activeCallInfo:Object;
 			private var activeCallIndex:int = -1;
 			
-			[Bindable] private var login:String 		= 'bitlyapidemo';
-			[Bindable] private var apiKey:String		= 'R_0da49e0a9118ff35f52f629d2d71bf07';
+			[Bindable] private var login:String 		= 'webapisbitly';
+			[Bindable] private var apiKey:String		= 'R_ddccb36b25360bc28be6764d523f40f4';
 			[Bindable] private var shortURL:String		= null;
 			[Bindable] private var userHash:String		= null;
 			[Bindable] private var hash:String			= null;

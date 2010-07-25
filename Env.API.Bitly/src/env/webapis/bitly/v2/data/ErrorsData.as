@@ -1,7 +1,7 @@
-package env.webapis.bitly.data
+package env.webapis.bitly.v2.data
 {
-	import env.webapis.bitly.BitlyData;
-	import env.webapis.bitly.BitlyFault;
+	import env.webapis.bitly.v2.BitlyData;
+	import env.webapis.bitly.v2.BitlyFault;
 	
 	public class ErrorsData
 	extends BitlyData

@@ -1,4 +1,4 @@
-package env.webapis.bitly
+package env.webapis.bitly.v2
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -10,8 +10,8 @@ package env.webapis.bitly
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
 	
-	[Event(type="env.webapis.bitly.BitlyEvent", name="complete")]
-	[Event(type="env.webapis.bitly.BitlyEvent", name="error")]
+	[Event(type="env.webapis.bitly.v2.BitlyEvent", name="complete")]
+	[Event(type="env.webapis.bitly.v2.BitlyEvent", name="error")]
 	
 	public class BitlyCall
 	extends EventDispatcher

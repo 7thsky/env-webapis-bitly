@@ -1,4 +1,4 @@
-package env.webapis.bitly
+package env.webapis.bitly.v2
 {
 	public class BitlyFault
 	{

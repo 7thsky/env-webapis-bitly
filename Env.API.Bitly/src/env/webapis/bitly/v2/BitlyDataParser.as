@@ -1,10 +1,10 @@
-package env.webapis.bitly
+package env.webapis.bitly.v2
 {
-	import env.webapis.bitly.data.ErrorsData;
-	import env.webapis.bitly.data.ExpandData;
-	import env.webapis.bitly.data.InfoData;
-	import env.webapis.bitly.data.ShortenData;
-	import env.webapis.bitly.data.StatsData;
+	import env.webapis.bitly.v2.data.ErrorsData;
+	import env.webapis.bitly.v2.data.ExpandData;
+	import env.webapis.bitly.v2.data.InfoData;
+	import env.webapis.bitly.v2.data.ShortenData;
+	import env.webapis.bitly.v2.data.StatsData;
 	
 	public class BitlyDataParser
 	{

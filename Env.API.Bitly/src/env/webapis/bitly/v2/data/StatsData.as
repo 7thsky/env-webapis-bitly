@@ -1,6 +1,6 @@
-package env.webapis.bitly.data
+package env.webapis.bitly.v2.data
 {
-	import env.webapis.bitly.BitlyData;
+	import env.webapis.bitly.v2.BitlyData;
 	
 	public class StatsData
 	extends BitlyData
